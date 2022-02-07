@@ -1,5 +1,4 @@
 .idea
 *.iml
 target
-geckodriver.exe
 build.gradle
