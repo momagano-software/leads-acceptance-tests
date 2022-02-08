@@ -25,9 +25,12 @@ jobs:
     -
       name: Setup chrome
       uses: browser-actions/setup-chrome@latest
+      with: 
+        chrome-version: stable
     -
       name: Run chrome
       run: chrome --version
+    
       
     - name: Build with Maven
       run: mvn clean verify --file pom.xml
