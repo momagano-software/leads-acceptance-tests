@@ -7,6 +7,9 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
+import za.co.momagano.model.CompanyProfile;
+
+import java.util.Map;
 
 public class RegistrationSteps {
     Actor john = Actor.named("Ben")

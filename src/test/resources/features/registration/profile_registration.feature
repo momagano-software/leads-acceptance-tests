@@ -19,7 +19,7 @@ Feature: Profile Registration
     And he shouldn't be able to submit
     Examples:
       |Name          |Trading Name|Email              |Contact   |Experience|Working hours|Location|Portfolio|Socials                                     |About                    |message(s)      |
-      |              |Dillinger Co  |john@dillinger.co|0782356891|10 years  |08:00 - 16:00|Cresta  |Plumbing |Twitter: @dillingerco,Instagram:@dillingerco|We are a plumbing company|Name is required|
+      |              |Dillinger Co  |john@dillinger.co|0782356891|10 years  |08:00 - 16:00,,9:00:17:00|Cresta  |Plumbing |Twitter: @dillingerco,Instagram:@dillingerco|We are a plumbing company|Name is required|
       |John Dillinger|              |john@dillinger.co|0782356891|10 years  |08:00 - 16:00|Cresta  |Plumbing |Twitter: @dillingerco,Instagram:@dillingerco|We are a plumbing company|Trading name is required|
       |John Dillinger|Dillinger Co  |                 |0782356891|10 years  |08:00 - 16:00|Cresta  |Plumbing |Twitter: @dillingerco,Instagram:@dillingerco|We are a plumbing company|Email is required|
       |John Dillinger|Dillinger Co  |john@dillinger.co|          |10 years  |08:00 - 16:00|Cresta  |Plumbing |Twitter: @dillingerco,Instagram:@dillingerco|We are a plumbing company|Contact number is required|
