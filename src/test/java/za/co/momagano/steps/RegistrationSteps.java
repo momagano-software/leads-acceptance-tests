@@ -5,9 +5,12 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.serenitybdd.screenplay.actions.Open;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
 import za.co.momagano.model.CompanyProfile;
+import za.co.momagano.tasks.EnterProfile;
+import za.co.momagano.ui.LandingPage;
 
 import java.util.Map;
 
@@ -18,6 +21,7 @@ public class RegistrationSteps {
     @Managed
     private WebDriver hisBrowser;
     private za.co.momagano.ui.ApplicationHomePage ApplicationHomePage;
+    private LandingPage LandingPage;
 
     @Before
     public void setup(){
@@ -25,14 +29,10 @@ public class RegistrationSteps {
     }
     @Given("{string} has the following details:")
     public void has_the_following_details(String actor, CompanyProfile companyProfile) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-        // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
-        throw new cucumber.api.PendingException();
+        john.attemptsTo(
+                Open.browserOn(ApplicationHomePage),
+                EnterProfile.company(companyProfile)
+        );
     }
 
     @Given("he registers")
