@@ -24,7 +24,7 @@ public class RegistrationSteps {
         john.can(BrowseTheWeb.with(hisBrowser));
     }
     @Given("{string} has the following details:")
-    public void has_the_following_details(String actor, io.cucumber.datatable.DataTable dataTable) {
+    public void has_the_following_details(String actor, CompanyProfile companyProfile) {
         // Write code here that turns the phrase above into concrete actions
         // For automatic transformation, change DataTable to one of
         // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or

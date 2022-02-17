@@ -1,5 +1,7 @@
 package za.co.momagano.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class WorkingHours {
@@ -15,6 +17,15 @@ public class WorkingHours {
 
     public static List<WorkingHours> getWorkingHours(String workingHours) {
         //todo: add logic to process working hours string
-        return null;
+        final String[] split = workingHours.split(",");
+        List<String> daysOfTheWeek = Arrays.asList("SUNDAY","MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY");
+        List<WorkingHours> wh = new ArrayList<>();
+        int count = 0;
+        for (String s:split) {
+            final String[] startEnd = s.split(":");
+            wh.add(new WorkingHours(daysOfTheWeek.get(count++),startEnd[0],startEnd[1]));
+        }
+
+        return wh;
     }
 }
