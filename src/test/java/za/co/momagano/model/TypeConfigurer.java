@@ -11,7 +11,7 @@ import java.util.Map;
 public class TypeConfigurer implements TypeRegistryConfigurer {
     @Override
     public Locale locale() {
-        return null;
+        return Locale.ENGLISH;
     }
 
     @Override
