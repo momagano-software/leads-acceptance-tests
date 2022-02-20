@@ -11,4 +11,7 @@ public class Profile {
     public static final Target LOCATION = Target.the("location field").locatedBy("#location");
     public static final Target PORTFOLIO = Target.the("portfolio field").locatedBy("#portfolio");
     public static final Target PLATFORM = Target.the("platform field").locatedBy("#platform");
+    public static final Target SUBMIT_BUTTON = Target.the("submit button").locatedBy("#submit");
+    public static final Target ERROR_MESSAGES = Target.the("error messages").locatedBy(".error");
 }
+

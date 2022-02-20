@@ -3,16 +3,26 @@ package za.co.momagano.steps;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import io.restassured.response.Response;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Open;
 import net.thucydides.core.annotations.Managed;
 import org.openqa.selenium.WebDriver;
 import za.co.momagano.model.CompanyProfile;
+import za.co.momagano.model.DB;
+import za.co.momagano.questions.ProfileError;
 import za.co.momagano.tasks.EnterProfile;
 import za.co.momagano.ui.LandingPage;
+import za.co.momagano.ui.Profile;
 
-import java.util.Map;
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isNotEnabled;
+import static net.serenitybdd.screenplay.questions.WebElementQuestion.stateOf;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
 
 public class RegistrationSteps {
     Actor john = Actor.named("Ben")
@@ -22,6 +32,7 @@ public class RegistrationSteps {
     private WebDriver hisBrowser;
     private za.co.momagano.ui.ApplicationHomePage ApplicationHomePage;
     private LandingPage LandingPage;
+    private CompanyProfile companyProfile;
 
     @Before
     public void setup(){
@@ -29,6 +40,8 @@ public class RegistrationSteps {
     }
     @Given("{string} has the following details:")
     public void has_the_following_details(String actor, CompanyProfile companyProfile) {
+        this.companyProfile = companyProfile;
+        System.out.println("Profle:" +companyProfile);
         john.attemptsTo(
                 Open.browserOn(ApplicationHomePage),
                 EnterProfile.company(companyProfile)
@@ -37,25 +50,30 @@ public class RegistrationSteps {
 
     @Given("he registers")
     public void he_registers() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+       john.attemptsTo(
+               Click.on(Profile.SUBMIT_BUTTON)
+       );
     }
 
     @Then("his profile should be created on the system")
     public void his_profile_should_be_created_on_the_system() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+            Response response = DB.queryByCompanyRegistration(companyProfile.getCompanyRegistration());
+            assertThat(response.statusCode(),is(200));
+            assertThat(response.body(),is(notNullValue()));
+            Serenity.recordReportData().withTitle("CALLBACK DATABASE RECORD").andContents(response.body().prettyPrint());
     }
     @Then("he should see error {string}")
     public void he_should_see_error(String message) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+      john.should(
+              seeThat(ProfileError.messages(), hasItems(message.split(", ")))
+      );
     }
 
     @Then("he shouldn't be able to submit")
     public void he_shouldn_t_be_able_to_submit() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
+        john.should(
+                seeThat(stateOf(Profile.SUBMIT_BUTTON), isNotEnabled())
+        );
     }
 
 }

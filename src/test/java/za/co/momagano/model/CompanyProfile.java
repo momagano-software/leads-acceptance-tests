@@ -4,6 +4,7 @@ import java.util.List;
 
 public class CompanyProfile {
 
+    private final String companyRegistration;
     private final String name;
     private final String tradingName;
     private final String email;
@@ -15,7 +16,8 @@ public class CompanyProfile {
     private final List<Social> socials;
     private final String about;
 
-    public CompanyProfile(String name, String tradingName, String email, String contact, String experience, List<WorkingHours> workingHours, String location, String portfolio, List<Social> socials, String about) {
+    public CompanyProfile(String companyRegistration, String name, String tradingName, String email, String contact, String experience, List<WorkingHours> workingHours, String location, String portfolio, List<Social> socials, String about) {
+        this.companyRegistration = companyRegistration;
         this.name = name;
         this.tradingName = tradingName;
         this.email = email;
@@ -66,5 +68,26 @@ public class CompanyProfile {
 
     public String getAbout() {
         return about;
+    }
+
+    public String getCompanyRegistration() {
+        return companyRegistration;
+    }
+
+    @Override
+    public String toString() {
+        return "CompanyProfile{" +
+                "companyRegistration='" + companyRegistration + '\'' +
+                ", name='" + name + '\'' +
+                ", tradingName='" + tradingName + '\'' +
+                ", email='" + email + '\'' +
+                ", contact='" + contact + '\'' +
+                ", experience='" + experience + '\'' +
+                ", workingHours=" + workingHours +
+                ", location='" + location + '\'' +
+                ", portfolio='" + portfolio + '\'' +
+                ", socials=" + socials +
+                ", about='" + about + '\'' +
+                '}';
     }
 }

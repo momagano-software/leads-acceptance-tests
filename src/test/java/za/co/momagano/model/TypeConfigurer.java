@@ -29,9 +29,10 @@ public class TypeConfigurer implements TypeRegistryConfigurer {
                     String portfolio = row.get("Portfolio");
                     List<Social> socials = Social.getSocials(row.get("Socials"));
                     String about = row.get("About");
+                    String companyRegistration = row.get("Company Reg");
 
 
-                    return new CompanyProfile(name,tradingName,email,contact,experience,workingHours,location,portfolio,socials,about);
+                    return new CompanyProfile(companyRegistration,name,tradingName,email,contact,experience,workingHours,location,portfolio,socials,about);
                 }));
     }
 
