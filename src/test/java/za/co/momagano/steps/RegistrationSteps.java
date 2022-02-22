@@ -5,11 +5,13 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import io.restassured.response.Response;
 import net.serenitybdd.core.Serenity;
+import net.serenitybdd.core.environment.EnvironmentSpecificConfiguration;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Open;
 import net.thucydides.core.annotations.Managed;
+import net.thucydides.core.util.EnvironmentVariables;
 import org.openqa.selenium.WebDriver;
 import za.co.momagano.model.CompanyProfile;
 import za.co.momagano.model.DB;
@@ -33,6 +35,7 @@ public class RegistrationSteps {
     private za.co.momagano.ui.ApplicationHomePage ApplicationHomePage;
     private LandingPage LandingPage;
     private CompanyProfile companyProfile;
+    private EnvironmentVariables environmentVariables;
 
     @Before
     public void setup(){
@@ -57,7 +60,10 @@ public class RegistrationSteps {
 
     @Then("his profile should be created on the system")
     public void his_profile_should_be_created_on_the_system() {
-            Response response = DB.queryByCompanyRegistration(companyProfile.getCompanyRegistration());
+
+        String webserviceEndpoint =  EnvironmentSpecificConfiguration.from(environmentVariables)
+                .getProperty("webdriver.base.url")+"/profile";
+            Response response = DB.queryByCompanyRegistration(webserviceEndpoint,companyProfile.getCompanyRegistration());
             assertThat(response.statusCode(),is(200));
             assertThat(response.body(),is(notNullValue()));
             Serenity.recordReportData().withTitle("CALLBACK DATABASE RECORD").andContents(response.body().prettyPrint());
