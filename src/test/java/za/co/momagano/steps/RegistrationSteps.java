@@ -38,13 +38,14 @@ public class RegistrationSteps {
     private EnvironmentVariables environmentVariables;
 
     @Before
-    public void setup(){
+    public void setup() {
         john.can(BrowseTheWeb.with(hisBrowser));
     }
+
     @Given("{string} has the following details:")
     public void has_the_following_details(String actor, CompanyProfile companyProfile) {
         this.companyProfile = companyProfile;
-        System.out.println("Profle:" +companyProfile);
+        System.out.println("Profile:" + companyProfile);
         john.attemptsTo(
                 Open.browserOn(ApplicationHomePage),
                 EnterProfile.company(companyProfile)
@@ -53,26 +54,27 @@ public class RegistrationSteps {
 
     @Given("he registers")
     public void he_registers() {
-       john.attemptsTo(
-               Click.on(Profile.SUBMIT_BUTTON)
-       );
+        john.attemptsTo(
+                Click.on(Profile.SUBMIT_BUTTON)
+        );
     }
 
     @Then("his profile should be created on the system")
     public void his_profile_should_be_created_on_the_system() {
 
-        String webserviceEndpoint =  EnvironmentSpecificConfiguration.from(environmentVariables)
-                .getProperty("webdriver.base.url")+"/profile";
-            Response response = DB.queryByCompanyRegistration(webserviceEndpoint,companyProfile.getCompanyRegistration());
-            assertThat(response.statusCode(),is(200));
-            assertThat(response.body(),is(notNullValue()));
-            Serenity.recordReportData().withTitle("CALLBACK DATABASE RECORD").andContents(response.body().prettyPrint());
+        String webserviceEndpoint = EnvironmentSpecificConfiguration.from(environmentVariables)
+                .getProperty("webdriver.base.url") + "/profile";
+        Response response = DB.queryByCompanyRegistration(webserviceEndpoint, companyProfile.getCompanyRegistration());
+        assertThat(response.statusCode(), is(200));
+        assertThat(response.body(), is(notNullValue()));
+        Serenity.recordReportData().withTitle("CALLBACK DATABASE RECORD").andContents(response.body().prettyPrint());
     }
+
     @Then("he should see error {string}")
     public void he_should_see_error(String message) {
-      john.should(
-              seeThat(ProfileError.messages(), hasItems(message.split(", ")))
-      );
+        john.should(
+                seeThat(ProfileError.messages(), hasItems(message.split(", ")))
+        );
     }
 
     @Then("he shouldn't be able to submit")

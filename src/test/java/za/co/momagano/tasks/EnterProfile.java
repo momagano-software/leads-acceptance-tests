@@ -23,12 +23,14 @@ public class EnterProfile implements Task {
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
                 Enter.theValue(companyProfile.getName()).into(Profile.NAME),
+                Enter.theValue(companyProfile.getCompanyRegistration()).into(Profile.COMPANY_REGISTRATION),
                 Enter.theValue(companyProfile.getTradingName()).into(Profile.TRADING_NAME),
                 Enter.theValue(companyProfile.getContact()).into(Profile.CONTACT),
                 Enter.theValue(companyProfile.getEmail()).into(Profile.EMAIL),
                 Enter.theValue(companyProfile.getExperience()).into(Profile.EXPERIENCE),
                 Enter.theValue(companyProfile.getLocation()).into(Profile.LOCATION),
                 Enter.theValue(companyProfile.getPortfolio()).into(Profile.PORTFOLIO),
+                Enter.theValue(companyProfile.getAbout()).into(Profile.ABOUT),
                 EnterSocials.socials(companyProfile.getSocials())
                 // todo: Enter working hours
         );

@@ -3,6 +3,7 @@ Feature: Profile Registration
   I would like to register my business
   So that I can have a profile
 
+  @wipa
   Scenario: Business has the correct details
     Given "John" has the following details:
       |Name          |Trading Name|Company Reg   |Email            |Contact   |Experience|Working hours|Location|Portfolio|Socials                                     |About                    |
