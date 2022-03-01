@@ -63,7 +63,7 @@ public class RegistrationSteps {
     public void his_profile_should_be_created_on_the_system() {
 
         String webserviceEndpoint = EnvironmentSpecificConfiguration.from(environmentVariables)
-                .getProperty("webdriver.base.url") + "/profile";
+                .getProperty("webdriver.base.url") + "profile";
         Response response = DB.queryByCompanyRegistration(webserviceEndpoint, companyProfile.getCompanyRegistration());
         assertThat(response.statusCode(), is(200));
         assertThat(response.body(), is(notNullValue()));
