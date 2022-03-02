@@ -30,7 +30,8 @@ public class EnterProfile implements Task {
                 Enter.theValue(companyProfile.getExperience()).into(Profile.EXPERIENCE),
                 Enter.theValue(companyProfile.getLocation()).into(Profile.LOCATION),
                 Enter.theValue(companyProfile.getPortfolio()).into(Profile.PORTFOLIO),
-                Enter.theValue(companyProfile.getAbout()).into(Profile.ABOUT)
+                Enter.theValue(companyProfile.getAbout()).into(Profile.ABOUT),
+                Enter.theValue(companyProfile.getName()).into(Profile.NAME)
 //                EnterSocials.socials(companyProfile.getSocials())
                 // todo: Enter working hours
         );
