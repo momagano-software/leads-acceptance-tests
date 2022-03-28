@@ -26,9 +26,9 @@ import static net.serenitybdd.screenplay.questions.WebElementQuestion.stateOf;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
-public class RegistrationSteps {
-    Actor john = Actor.named("Ben")
-            .describedAs("the Interested Customer");
+public class ProfileRegistrationSteps {
+    Actor john = Actor.named("John")
+            .describedAs("the service provider");
 
     @Managed
     private WebDriver hisBrowser;
