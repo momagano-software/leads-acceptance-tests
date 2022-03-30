@@ -2,16 +2,29 @@ package za.co.momagano.steps;
 
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import io.restassured.response.Response;
+import net.serenitybdd.core.Serenity;
+import net.serenitybdd.core.environment.EnvironmentSpecificConfiguration;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.serenitybdd.screenplay.actions.Click;
+import net.serenitybdd.screenplay.actions.Open;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.util.EnvironmentVariables;
 import org.openqa.selenium.WebDriver;
-import za.co.momagano.model.CompanyProfile;
+import za.co.momagano.model.CustomerProfile;
+import za.co.momagano.model.DB;
+import za.co.momagano.tasks.EnterCompanyProfile;
+import za.co.momagano.tasks.EnterCustomerProfile;
+import za.co.momagano.ui.CompanyProfileUi;
+import za.co.momagano.ui.CustomerProfileUi;
 import za.co.momagano.ui.LandingPage;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.stateOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 public class CustomerRegistrationSteps {
@@ -22,7 +35,7 @@ public class CustomerRegistrationSteps {
     private WebDriver hisBrowser;
     private za.co.momagano.ui.ApplicationHomePage ApplicationHomePage;
     private LandingPage LandingPage;
-    private CompanyProfile companyProfile;
+    private CustomerProfile customerProfile;
     private EnvironmentVariables environmentVariables;
 
     @Before
@@ -31,15 +44,31 @@ public class CustomerRegistrationSteps {
     }
 
     @Given("Customer {string} has the following details:")
-    public void customer_has_the_following_details(String string, io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-        // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
-        throw new cucumber.api.PendingException();
+    public void customer_has_the_following_details(String string, CustomerProfile customerProfile) {
+        this.customerProfile = customerProfile;
+        System.out.println("CustomerProfile:" + customerProfile);
+        peter.attemptsTo(
+                Open.browserOn(ApplicationHomePage),
+                Click.on(CustomerProfileUi.CUSTOMER_PROFILE_LINK),
+                EnterCustomerProfile.customer(customerProfile)
+        );
+    }
+
+    @Given("he submits")
+    public void he_submits() {
+        peter.attemptsTo(
+                Click.on(CustomerProfileUi.SUBMIT_BUTTON)
+        );
+    }
+
+    @Then("his customer profile should be created on the system")
+    public void his_customer_profile_should_be_created_on_the_system() {
+        String webserviceEndpoint = EnvironmentSpecificConfiguration.from(environmentVariables)
+                .getProperty("webdriver.base.url") + "customer/profile";
+        Response response = DB.queryByCustomerEmail(webserviceEndpoint, customerProfile.getEmail());
+        assertThat(response.statusCode(), is(200));
+        assertThat(response.body(), is(notNullValue()));
+        Serenity.recordReportData().withTitle("CALLBACK DATABASE RECORD").andContents(response.body().prettyPrint());
     }
 
 

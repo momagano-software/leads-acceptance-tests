@@ -16,9 +16,9 @@ import org.openqa.selenium.WebDriver;
 import za.co.momagano.model.CompanyProfile;
 import za.co.momagano.model.DB;
 import za.co.momagano.questions.ProfileError;
-import za.co.momagano.tasks.EnterProfile;
+import za.co.momagano.tasks.EnterCompanyProfile;
 import za.co.momagano.ui.LandingPage;
-import za.co.momagano.ui.Profile;
+import za.co.momagano.ui.CompanyProfileUi;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isNotEnabled;
@@ -48,14 +48,15 @@ public class ProfileRegistrationSteps {
         System.out.println("Profile:" + companyProfile);
         john.attemptsTo(
                 Open.browserOn(ApplicationHomePage),
-                EnterProfile.company(companyProfile)
+                Click.on(CompanyProfileUi.COMPANY_PROFILE_LINK),
+                EnterCompanyProfile.company(companyProfile)
         );
     }
 
     @Given("he registers")
     public void he_registers() {
         john.attemptsTo(
-                Click.on(Profile.SUBMIT_BUTTON)
+                Click.on(CompanyProfileUi.SUBMIT_BUTTON)
         );
     }
 
@@ -80,7 +81,7 @@ public class ProfileRegistrationSteps {
     @Then("he shouldn't be able to submit")
     public void he_shouldn_t_be_able_to_submit() {
         john.should(
-                seeThat(stateOf(Profile.SUBMIT_BUTTON), isNotEnabled())
+                seeThat(stateOf(CompanyProfileUi.SUBMIT_BUTTON), isNotEnabled())
         );
     }
 

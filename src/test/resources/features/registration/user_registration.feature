@@ -11,8 +11,8 @@ Feature: User Registration
     Given Customer "Peter" has the following details:
       | Name  | Surname | Email           | Contact    |
       | Peter | Pater   | peter@gmail.com | 0111122334 |
-    And he registers
-    Then his profile should be created on the system
+    And he submits
+    Then his customer profile should be created on the system
 
 #  Scenario Outline: Mandatory fields should be captured
 #    Given "John" has the following details:

@@ -15,4 +15,11 @@ public class DB {
                 .queryParam("companyRegistration",companyRegistration)
                 .get(webserviceEndpoint);
     }
+
+    public static Response queryByCustomerEmail(String webserviceEndpoint, String email) {
+        return SerenityRest.given()
+                .contentType("application/json")
+                .queryParam("customerEmail",email)
+                .get(webserviceEndpoint);
+    }
 }

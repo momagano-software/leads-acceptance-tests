@@ -34,6 +34,18 @@ public class TypeConfigurer implements TypeRegistryConfigurer {
 
                     return new CompanyProfile(companyRegistration,name,tradingName,email,contact,experience,workingHours,location,portfolio,socials,about);
                 }));
+
+
+        typeRegistry.defineDataTableType(new DataTableType(CustomerProfile.class,
+                (Map<String,String> row)->{
+
+                    String name = row.get("Name");
+                    String surname = row.get("Surname");
+                    String email = row.get("Email");
+                    String contact = row.get("Contact");
+
+                    return new CustomerProfile(name,surname,email,contact);
+                }));
     }
 
 }
