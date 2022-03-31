@@ -12,6 +12,7 @@ import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Open;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.util.EnvironmentVariables;
+import org.hamcrest.CoreMatchers;
 import org.openqa.selenium.WebDriver;
 import za.co.momagano.model.CompanyProfile;
 import za.co.momagano.model.DB;
@@ -67,7 +68,7 @@ public class ProfileRegistrationSteps {
                 .getProperty("webdriver.base.url") + "profile";
         Response response = DB.queryByCompanyRegistration(webserviceEndpoint, companyProfile.getCompanyRegistration());
         assertThat(response.statusCode(), is(200));
-        assertThat(response.body(), is(notNullValue()));
+        assertThat(response.body(), is(CoreMatchers.not("{}")));
         Serenity.recordReportData().withTitle("CALLBACK DATABASE RECORD").andContents(response.body().prettyPrint());
     }
 
