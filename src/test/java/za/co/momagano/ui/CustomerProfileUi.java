@@ -9,5 +9,6 @@ public class CustomerProfileUi {
     public static final Target EMAIL = Target.the("email field").locatedBy("#email");
     public static final Target SUBMIT_BUTTON = Target.the("submit button").locatedBy("#submit");
     public static final Target CUSTOMER_PROFILE_LINK = Target.the("customer profile link").locatedBy("#customer-registration-link");
+    public static final Target ERROR_MESSAGES = Target.the("customer profile errors").locatedBy(".error-messages");
 }
 

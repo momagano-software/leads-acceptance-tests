@@ -10,12 +10,15 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Open;
+import net.serenitybdd.screenplay.actors.OnStage;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.util.EnvironmentVariables;
 import org.hamcrest.CoreMatchers;
 import org.openqa.selenium.WebDriver;
 import za.co.momagano.model.CustomerProfile;
 import za.co.momagano.model.DB;
+import za.co.momagano.questions.CustomerProfileError;
+import za.co.momagano.questions.ProfileError;
 import za.co.momagano.tasks.EnterCompanyProfile;
 import za.co.momagano.tasks.EnterCustomerProfile;
 import za.co.momagano.ui.CompanyProfileUi;
@@ -23,9 +26,10 @@ import za.co.momagano.ui.CustomerProfileUi;
 import za.co.momagano.ui.LandingPage;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isNotEnabled;
 import static net.serenitybdd.screenplay.questions.WebElementQuestion.stateOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 public class CustomerRegistrationSteps {
@@ -70,6 +74,19 @@ public class CustomerRegistrationSteps {
         assertThat(response.statusCode(), is(200));
         assertThat(response.body(), is(CoreMatchers.not("{}")));
         Serenity.recordReportData().withTitle("CALLBACK DATABASE RECORD").andContents(response.body().prettyPrint());
+    }
+    @Then("Peter should see error {string}")
+    public void peter_should_see_error(String message) {
+        peter.should(
+                seeThat(CustomerProfileError.messages(), hasItems(message.split(", ")))
+        );
+    }
+
+    @Then("Peter shouldn't be able to submit")
+    public void peter_shouldn_t_be_able_to_submit() {
+        peter.should(
+                seeThat(stateOf(CompanyProfileUi.SUBMIT_BUTTON), isNotEnabled())
+        );
     }
 
 
