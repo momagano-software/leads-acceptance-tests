@@ -24,4 +24,5 @@ Feature: User Registration
       |       | Pater   | peter@gmail.com | 0111122334 | Name is required           |
       | Peter |         | peter@gmail.com | 0111122334 | Surname is required        |
       | Peter | Pater   |                 | 0111122334 | Email is required          |
+      | Peter | Pater   | invalid         | 0111122334 | Invalid email              |
       | Peter | Pater   | peter@gmail.com |            | Contact number is required |
