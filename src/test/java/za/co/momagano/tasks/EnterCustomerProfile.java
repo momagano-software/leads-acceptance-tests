@@ -5,6 +5,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Enter;
+import org.openqa.selenium.Keys;
 import za.co.momagano.model.CustomerProfile;
 import za.co.momagano.ui.CustomerProfileUi;
 
@@ -25,7 +26,8 @@ public class EnterCustomerProfile implements Task {
                 Enter.theValue(customerProfile.getName()).into(CustomerProfileUi.NAME),
                 Enter.theValue(customerProfile.getSurname()).into(CustomerProfileUi.SURNAME),
                 Enter.theValue(customerProfile.getContact()).into(CustomerProfileUi.CONTACT),
-                Enter.theValue(customerProfile.getEmail()).into(CustomerProfileUi.EMAIL)
+                Enter.theValue(customerProfile.getEmail()).into(CustomerProfileUi.EMAIL),
+                Enter.theValue(customerProfile.getName()).into(CustomerProfileUi.NAME)
         );
     }
 }

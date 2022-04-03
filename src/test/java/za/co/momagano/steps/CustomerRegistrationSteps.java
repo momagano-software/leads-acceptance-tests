@@ -85,7 +85,7 @@ public class CustomerRegistrationSteps {
     @Then("Peter shouldn't be able to submit")
     public void peter_shouldn_t_be_able_to_submit() {
         peter.should(
-                seeThat(stateOf(CompanyProfileUi.SUBMIT_BUTTON), isNotEnabled())
+                seeThat(stateOf(CustomerProfileUi.SUBMIT_BUTTON), isNotEnabled())
         );
     }
 
